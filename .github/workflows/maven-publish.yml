@@ -26,7 +26,10 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.token }} # location for the settings.xml file
     - name: Print settings.xml
-      run: cat $GITHUB_WORKSPACE/settings.xml
+      run: |
+        sed -i "s/${env.GITHUB_ACTOR}/$GITHUB_ACTOR/g" $GITHUB_WORKSPACE/settings.xml
+        sed -i "s/${env.GITHUB_TOKEN}/$GITHUB_TOKEN/g" $GITHUB_WORKSPACE/settings.xml
+        cat $GITHUB_WORKSPACE/settings.xml
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
