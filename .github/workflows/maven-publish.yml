@@ -27,7 +27,6 @@ jobs:
         settings-path: ${{ github.token }} # location for the settings.xml file
     - name: Print settings.xml
       run: |
-        sed -i "s/${env.GITHUB_ACTOR}/$GITHUB_ACTOR/g" $GITHUB_WORKSPACE/settings.xml
         sed -i "s/${env.GITHUB_TOKEN}/$GITHUB_TOKEN/g" $GITHUB_WORKSPACE/settings.xml
         cat $GITHUB_WORKSPACE/settings.xml
     - name: Build with Maven
@@ -37,4 +36,3 @@ jobs:
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
         GITHUB_TOKEN: ${{ secrets.repo_token }}
-        GITHUB_ACTOR: xLikeAlex
